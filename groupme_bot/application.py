@@ -10,11 +10,9 @@ from .bot import Bot
 
 GET = 'GET'
 POST = 'POST'
-HEAD = 'HEAD'
 
 _not_allowed = PlainTextResponse('405 Method Not Allowed', status_code=405)
 _not_found = PlainTextResponse('404 Not Found', status_code=404)
-_ping_handler = PlainTextResponse('Hello', status_code=200)
 
 
 class RouteExistsError(Exception):
@@ -46,7 +44,7 @@ class Application(object):
             await response(scope, receive, send)
 
         self._route_tree: Dict[str, Dict[str, ASGIApp]] = {
-            '/': {GET: _summary, HEAD: _ping_handler},
+            '/': {GET: _summary},
             '/_health': {GET: _health}
         }
 
@@ -127,7 +125,7 @@ class Application(object):
                                    f"You must use a new route for each bot.")
 
         # store the bot for call routing
-        self._route_tree[callback_path] = {POST: bot, GET: _ping_handler, HEAD: _ping_handler}
+        self._route_tree[callback_path] = {POST: bot}
 
         # add any scheduler jobs
         for job in bot.cron_jobs:
