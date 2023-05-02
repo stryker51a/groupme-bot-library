@@ -21,7 +21,7 @@ setup(
     long_description_content_type="text/markdown",
     install_requires=[
         'anyio==3.6.2',
-        'APScheduler==3.10.1',
+        'apscheduler==3.10.1',
         'certifi==2022.12.7',
         'charset-normalizer==3.1.0',
         'click==8.1.3',
