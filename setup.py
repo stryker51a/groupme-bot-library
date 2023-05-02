@@ -25,7 +25,7 @@ setup(
         'httpx~=0.16.1',
         'starlette~=0.14',
         'uvicorn~=0.13',
-        'uvloop~=0.14.0'
+        'requests~=2.29.0'
     ],
     python_requires='>=3.6',  # for use of f strings
     classifiers=[
