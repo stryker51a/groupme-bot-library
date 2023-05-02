@@ -1,6 +1,6 @@
 from typing import List
 
-from .attachment import Attachment, parse_attachment
+from attachment import Attachment, parse_attachment
 
 
 class Callback(object):
