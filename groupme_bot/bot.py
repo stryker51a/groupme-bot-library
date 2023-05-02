@@ -10,9 +10,9 @@ from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 from starlette.types import Scope, Receive, Send
 
-from .attachment import Attachment, MentionsAttachment
-from .callback import Callback
-from .groupme import GroupMe
+from attachment import Attachment, MentionsAttachment
+from callback import Callback
+from groupme import GroupMe
 
 _success_response = PlainTextResponse('Success')
 
