@@ -21,10 +21,10 @@ setup(
     long_description=read('README.md'),
     long_description_content_type="text/markdown",
     install_requires=[
-        'APScheduler~=3.6',
+        'APScheduler~=3.10.1',
         'httpx~=0.16.1',
-        'starlette~=0.14',
-        'uvicorn~=0.13',
+        'starlette~=0.26.1',
+        'uvicorn~=0.22.0',
         'requests~=2.29.0'
     ],
     python_requires='>=3.6',  # for use of f strings
