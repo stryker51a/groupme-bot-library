@@ -87,6 +87,19 @@ class MentionsAttachment(Attachment):
         return self._kwargs.get('user_ids')
 
 
+class ReplyAttachment(Attachment):
+    def __init__(self, reply_id: int, base_reply_id: int):
+        Attachment.__init__(self, type='reply', reply_id=reply_id, base_reply_id=base_reply_id)
+
+    @property
+    def reply_id(self):
+        return self._kwargs.get('reply_id')
+
+    @property
+    def base_reply_id(self):
+        return self._kwargs.get('base_reply_id')
+
+
 def parse_attachment(attachment_dict: dict) -> Attachment:
     attachment_type = attachment_dict.get('type')
     if attachment_type is None:
@@ -102,5 +115,7 @@ def parse_attachment(attachment_dict: dict) -> Attachment:
         return EmojiAttachment(attachment_dict.get('placeholder'), attachment_dict.get('charmap'))
     elif attachment_type == 'mentions':
         return MentionsAttachment(attachment_dict.get('loci'), attachment_dict.get('user_ids'))
+    elif attachment_type == 'reply':
+        return ReplyAttachment(attachment_dict.get('reply_id'), attachment_dict.get('base_reply_id'))
 
     raise InvalidAttachment(f'unsupported attachment type `{attachment_type}`')

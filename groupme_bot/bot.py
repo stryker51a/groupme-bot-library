@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import json
 import re
-from collections import OrderedDict
 from json.decoder import JSONDecodeError
 from typing import Any, List, Callable, Optional
 
-import httpx
+import requests
 from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 from starlette.types import Scope, Receive, Send
@@ -62,7 +62,7 @@ class Bot(GroupMe):
         self.groupme_api_token = groupme_api_token
         self.group_id = group_id
 
-        self._handler_functions: OrderedDict = OrderedDict()
+        self._handler_functions = {}
         self._jobs = []
 
     @property
@@ -143,7 +143,7 @@ class Bot(GroupMe):
             'kwargs': kwargs
         })
 
-    def post_message(self, msg: str, attachments: Optional[List[Attachment]] = None) -> httpx.Response:
+    def post_message(self, msg: str, attachments: Optional[List[Attachment]] = None) -> requests.Response:
         """
         Posts a bot message to the group with optional attachments.
         :param str msg: The message to be sent
@@ -159,9 +159,9 @@ class Bot(GroupMe):
             "text": msg,
             "attachments": attachments
         }
-        response = httpx.post(
+        response = requests.post(
             'https://api.groupme.com/v3/bots/post',
-            json=data,
+            data=json.dumps(data),
             headers={'Content-Type': 'application/json'}
         )
         response.raise_for_status()
